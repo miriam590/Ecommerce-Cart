@@ -18,6 +18,7 @@ Welcome to the Simple E-Commerce Cart application! This React-based web app allo
 
 ### Core Features
 
+
 - View a list of available products with their names, prices, and an "Add to Cart" button.
 - Add products to the cart, with the ability to increase their quantity if they are already in the cart.
 - View a detailed list of all items in the cart, including names, prices, quantities, and the total price.
@@ -54,3 +55,9 @@ bash
 ## Getting Started
 
 1. Clone the repository to your local machine:
+2.Install dependencies
+3 .Start the development server:
+npm start
+4 .4. Open your browser and navigate to `http://localhost:3000` to view the application.
+
+
