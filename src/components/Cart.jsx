@@ -1,5 +1,5 @@
 import React from 'react';
-
+// Cart component receives cart items, updateQuantity function, and removeFromCart function as props
 function Cart({ cart, updateQuantity, removeFromCart }) {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
