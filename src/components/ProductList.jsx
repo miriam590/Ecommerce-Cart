@@ -1,4 +1,4 @@
-// ProductList.jsx
+
 import React from 'react';
 
 function ProductList({ products, addToCart }) {
