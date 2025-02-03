@@ -4,16 +4,6 @@
 
 Welcome to the Simple E-Commerce Cart application! This React-based web app allows users to browse a selection of products, add them to a shopping cart, modify the cart contents, and view a summary of their total price. The application is designed to enhance your understanding of React components, props, state management, and event handling.
 
-## Table of Contents
-
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Project Setup](#project-setup)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Contribution](#contribution)
-- [License](#license)
-
 ## Features
 
 ### Core Features
@@ -24,12 +14,6 @@ Welcome to the Simple E-Commerce Cart application! This React-based web app allo
 - View a detailed list of all items in the cart, including names, prices, quantities, and the total price.
 - Remove products from the cart or adjust their quantities.
 
-### Bonus Features (Optional)
-
-- Sort products by name or price (ascending/descending).
-- Persist cart state using localStorage.
-- Display a message when the cart is empty or no products are available.
-- Add search functionality to filter products by name.
 
 ## Technologies Used
 
@@ -58,6 +42,6 @@ bash
 2.Install dependencies
 3 .Start the development server:
 npm start
-4 .4. Open your browser and navigate to `http://localhost:3000` to view the application.
+4 .4. Open your browser and navigate to `http://localhost:8001` to view the application.
 
 
