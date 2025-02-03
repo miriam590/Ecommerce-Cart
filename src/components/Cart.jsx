@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Cart component receives cart items, updateQuantity function, and removeFromCart function as props
 function Cart({ cart, updateQuantity, removeFromCart }) {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -8,7 +7,7 @@ function Cart({ cart, updateQuantity, removeFromCart }) {
     <div className="cart">
       <h2>Shopping Cart</h2>
       {cart.length === 0 ? (
-        <p>Your cart is empty</p>
+        <p>Your cart is empty.</p>
       ) : (
         <>
           {cart.map(item => (
@@ -16,19 +15,15 @@ function Cart({ cart, updateQuantity, removeFromCart }) {
               <h3>{item.name}</h3>
               <p>${item.price} x {item.quantity}</p>
               <div className="quantity-controls">
-                <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>
-                  -
-                </button>
+                <button onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
                 <span>{item.quantity}</span>
-                <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
-                  +
-                </button>
+                <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
                 <button onClick={() => removeFromCart(item.id)}>Remove</button>
               </div>
             </div>
           ))}
           <div className="cart-total">
-            <h3>Total: ${total}</h3>
+            <h3>Total: ${total.toFixed(2)}</h3>
           </div>
         </>
       )}
@@ -37,16 +32,3 @@ function Cart({ cart, updateQuantity, removeFromCart }) {
 }
 
 export default Cart;
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,9 +1,8 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ProductList from './components/ProductList';
 import Cart from './components/Cart';
 import SearchSort from './components/SearchSort';
-import './App.css';
+import './styles/App.css';
 
 const initialProducts = [
   { id: 1, name: "T-Shirt", price: 20 },
@@ -14,76 +13,38 @@ const initialProducts = [
 ];
 
 function App() {
-  const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
-  const [products, setProducts] = useState(initialProducts);
+  const [cart, setCart] = useState([]);
+  const [products] = useState(initialProducts);
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortType, setSortType] = useState('none');
 
-  useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
-
+  // Add item to cart or increase quantity if already in cart
   const addToCart = (product) => {
     setCart(prevCart => {
       const existingItem = prevCart.find(item => item.id === product.id);
-      if (existingItem) {
-        return prevCart.map(item =>
-          item.id === product.id 
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prevCart, { ...product, quantity: 1 }];
+      return existingItem
+        ? prevCart.map(item =>
+            item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          )
+        : [...prevCart, { ...product, quantity: 1 }];
     });
   };
 
+  // Remove item from cart
   const removeFromCart = (productId) => {
     setCart(prevCart => prevCart.filter(item => item.id !== productId));
   };
 
+  // Update item quantity in cart
   const updateQuantity = (productId, newQuantity) => {
-    if (newQuantity < 1) {
-      removeFromCart(productId);
-      return;
-    }
+    if (newQuantity < 1) return; // Prevent quantity from going below 1
     setCart(prevCart =>
       prevCart.map(item =>
-        item.id === productId 
-          ? { ...item, quantity: newQuantity }
-          : item
+        item.id === productId ? { ...item, quantity: newQuantity } : item
       )
     );
   };
 
-  const handleSearch = (term) => {
-    setSearchTerm(term);
-  };
-
-  const handleSort = (type) => {
-    setSortType(type);
-    let sortedProducts = [...products];
-    switch(type) {
-      case 'name-asc':
-        sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
-        break;
-      case 'name-desc':
-        sortedProducts.sort((a, b) => b.name.localeCompare(a.name));
-        break;
-      case 'price-asc':
-        sortedProducts.sort((a, b) => a.price - b.price);
-        break;
-      case 'price-desc':
-        sortedProducts.sort((a, b) => b.price - a.price);
-        break;
-      default:
-        break;
-    }
-    setProducts(sortedProducts);
-  };
-
+  // Filter products based on search input
   const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -91,25 +52,11 @@ function App() {
   return (
     <div className="app">
       <h1>Simple E-Commerce Cart</h1>
-      <SearchSort 
-        onSearch={handleSearch} 
-        onSort={handleSort}
-        sortType={sortType}
-      />
-      <div className="main-content">
-        <ProductList 
-          products={filteredProducts} 
-          addToCart={addToCart} 
-        />
-        <Cart 
-          cart={cart} 
-          updateQuantity={updateQuantity}
-          removeFromCart={removeFromCart}
-        />
-      </div>
+      <SearchSort onSearch={setSearchTerm} />
+      <ProductList products={filteredProducts} addToCart={addToCart} />
+      <Cart cart={cart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} />
     </div>
   );
 }
 
 export default App;
-
